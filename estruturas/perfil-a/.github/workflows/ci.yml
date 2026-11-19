@@ -1,0 +1,49 @@
+# CI padrão do dev-playbook. ANTES DE USAR:
+# - Confira na documentação oficial a versão atual de cada action/imagem e FIXE a versão
+#   (de preferência pelo SHA do commit; ver checklist de segurança S-27).
+# - Os comandos do Gitleaks e do Semgrep foram montados a partir da documentação pública
+#   em 2026-11-19 (ver .dev-playbook/metodo/stack/perfil-a-corporativo.md) e precisam ser testados no primeiro PR.
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    name: Lint, tipos e testes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4          # fixar versão/SHA
+      - uses: actions/setup-node@v4        # fixar versão/SHA
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=high  # S-20: falha com vulnerabilidade alta
+      - run: npm run verificar
+
+  segredos:
+    name: Segredos (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4          # fixar versão/SHA
+        with:
+          fetch-depth: 0                   # histórico completo para varrer commits
+      # Imagem oficial (fixe a versão em vez de "latest"). Comando "git" existe desde a v8.19.
+      - run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:latest git /repo --redact --verbose
+
+  sast:
+    name: Análise estática (Semgrep CE)
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep               # fixar versão
+    steps:
+      - uses: actions/checkout@v4          # fixar versão/SHA
+      # "semgrep scan" não exige login. Prefira um conjunto de regras explícito a "--config auto".
+      - run: semgrep scan --config p/default --error

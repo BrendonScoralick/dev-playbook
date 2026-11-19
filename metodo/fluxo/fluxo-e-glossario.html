@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fluxo e Glossário</title>
+<style>
+  :root{--bg:#fafaf7;--fg:#1d1f23;--mut:#5d6370;--card:#fff;--line:#d9dce3;--acc:#2456d6;--gate:#b45309;--gatebg:#fef3c7;--red:#b91c1c;--green:#15803d;--loop:#6d28d9}
+  @media (prefers-color-scheme:dark){:root{--bg:#14161a;--fg:#e8e9ec;--mut:#9aa0ad;--card:#1d2026;--line:#333845;--acc:#7aa2ff;--gate:#fbbf24;--gatebg:#3a2e0b;--red:#f87171;--green:#4ade80;--loop:#c4a5ff}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+  main{max-width:860px;margin:0 auto;padding:32px 16px 64px}
+  h1{font-size:1.8rem;margin:0 0 4px} h2{font-size:1.3rem;margin:44px 0 12px;border-bottom:2px solid var(--line);padding-bottom:6px}
+  .sub{color:var(--mut);margin:0 0 24px}
+  .flow{display:flex;flex-direction:column;align-items:stretch}
+  .step{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:8px;padding:12px 16px}
+  .step b{display:block;font-size:1.05rem}
+  .step small{color:var(--mut)}
+  .step .ex{display:block;margin-top:4px;font-size:.9rem;color:var(--mut)}
+  .step.red{border-left-color:var(--red)} .step.green{border-left-color:var(--green)}
+  .gate{align-self:center;background:var(--gatebg);color:var(--gate);border:1px dashed var(--gate);border-radius:999px;padding:3px 14px;font-size:.85rem;font-weight:600;margin:0}
+  .arrow{align-self:center;color:var(--mut);line-height:1;font-size:1.3rem;margin:2px 0}
+  .loop{margin-top:10px;border:2px dashed var(--loop);border-radius:8px;padding:10px 16px;color:var(--loop);font-weight:600;text-align:center}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:12px 0}
+  .box code,.git{font-family:ui-monospace,Consolas,monospace}
+  .git{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 16px;overflow-x:auto;white-space:pre;font-size:.85rem}
+  dl{margin:0} dt{font-weight:700;margin-top:14px} dd{margin:2px 0 0;color:var(--fg)}
+  dd .ex{display:block;color:var(--mut);font-size:.9rem}
+  .grp{margin-top:28px;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);font-weight:700}
+  table{width:100%;border-collapse:collapse;font-size:.92rem} th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:var(--card)}
+  @media print{body{background:#fff;color:#000;font-size:11pt}.step,.box,.git{break-inside:avoid}h2{break-before:page}h2:first-of-type{break-before:auto}}
+</style>
+</head>
+<body>
+<main>
+<h1>Fluxo e Glossário</h1>
+<p class="sub">Desenvolvimento de software assistido por IA, do PRD à operação. Exemplos usam o sistema de inscrição em workshops (dados fictícios).</p>
+
+<h2>1. O ciclo completo</h2>
+<p>Cada fase termina num <b>gate</b> (ponto de aprovação). A Spec, versionada no repositório, é a fonte da verdade, e o ciclo fecha: o que a operação aprende vira uma nova Spec.</p>
+
+<div class="box"><b>Duas rotas para o começo</b> (detalhes em <code>metodo/fluxo/ciclo.md</code>):<br>
+<b>Rota B, protótipo primeiro (a habitual):</b> Brief de 5 linhas → Protótipo no Claude Design (3 prompts) → PRD gerado no fechamento e revisado à mão → Spec.<br>
+<b>Rota A, PRD primeiro:</b> o desenho abaixo, quando o problema e as regras já chegam definidos.</div>
+
+<div class="flow">
+  <div class="step"><b>1. PRD</b><small>Por que e para quem? Hipótese + métrica (1 página)</small><span class="ex">"Organizadores perdem vagas controlando inscrições em planilha."</span></div>
+  <div class="arrow">↓</div><div class="gate">GATE: problema e métrica aprovados</div><div class="arrow">↓</div>
+
+  <div class="step"><b>2. Discovery</b><small>Isso é verdade? Validar antes de construir</small><span class="ex">Conversar com 3 organizadores.</span></div>
+  <div class="arrow">↓</div><div class="gate">GATE: hipótese confirmada</div><div class="arrow">↓</div>
+
+  <div class="step"><b>3. Design + handoff (Claude Design)</b><small>Telas com todos os estados: vazio, erro, sem permissão, carregando</small><span class="ex">Lista de workshops, tela "vagas esgotadas". O handoff é insumo da Spec, não atalho.</span></div>
+  <div class="arrow">↓</div><div class="gate">GATE: telas e inventário aprovados</div><div class="arrow">↓</div>
+
+  <div class="step"><b>4. Spec + threat model</b><small>Critérios EARS, STRIDE, matriz perfil × recurso × ação. Vai em PR só de documentação.</small><span class="ex">"QUANDO um usuário enviar DELETE para inscrição que não é dele, O SISTEMA DEVE responder 403."</span></div>
+  <div class="arrow">↓</div><div class="gate">GATE: PR da Spec aprovado (Code Owners)</div><div class="arrow">↓</div>
+
+  <div class="step"><b>5. Plano de tarefas</b><small>Tarefas pequenas, cada uma ligada a um critério da Spec</small><span class="ex">T1 tabela de inscrições; T2 rota POST; T3 regra de vagas.</span></div>
+  <div class="arrow">↓</div>
+
+  <div class="step red"><b>6. Red: testes primeiro</b><small>Testes falhando pelo motivo certo, incluindo testes de abuso. PR rascunho (CI vermelho de propósito)</small><span class="ex">Teste "inscrição nº 31 deve ser recusada" falha com "esperado erro, recebido sucesso".</span></div>
+  <div class="arrow">↓</div><div class="gate">GATE: testes revisados, falhando pelo motivo certo</div><div class="arrow">↓</div>
+
+  <div class="step green"><b>7. Green + Refactor: implementação</b><small>Código mínimo para passar; depois limpar sem mudar o comportamento. Claude Code conduzido por você. Nunca alterar teste para fazê-lo passar.</small></div>
+  <div class="arrow">↓</div>
+
+  <div class="step"><b>8. Pull Request + CI</b><small>Lint, tipos, testes, varredura de segredos; leitura do diff; aprovação</small></div>
+  <div class="arrow">↓</div><div class="gate">GATE: CI verde + aprovação (autor não aprova o próprio PR)</div><div class="arrow">↓</div>
+
+  <div class="step"><b>9. Release (CD)</b><small>Squash and merge na main e deploy</small></div>
+  <div class="arrow">↓</div>
+
+  <div class="step"><b>10. Operação</b><small>Monitorar, backup testado, runbook. Em incidente: conter primeiro, investigar depois</small></div>
+  <div class="arrow">↓</div>
+
+  <div class="step"><b>11. Feedback</b><small>Postmortem, métricas, pedidos de usuários</small><span class="ex">"Faltava a regra de workshop lotado."</span></div>
+  <div class="loop">↺ Volta à fase 4: nova regra na Spec → teste → correção</div>
+</div>
+
+<div class="box"><b>Modo rápido</b> (mudança pequena e de baixo risco, ex.: trocar um texto): spec curta + teste, sem as fases 1 a 3. Não vale para autenticação, permissões, dados pessoais ou migrações.</div>
+
+<h2>2. O caminho do Git</h2>
+<div class="git">main ──●───────────────────────────────●──►  (protegida: só entra via PR)
+        \                                     /
+         └─ branch ──● commit ──● commit ──┐ /
+                                  │  push  │/
+                              GitHub ── Pull Request ── CI verde + aprovação ── merge</div>
+<table>
+  <tr><th>Comando</th><th>Onde acontece</th><th>O que faz</th></tr>
+  <tr><td><code>git switch -c nome</code></td><td>local</td><td>cria e entra numa branch</td></tr>
+  <tr><td><code>git add</code></td><td>local</td><td>separa o que entra na próxima "foto"</td></tr>
+  <tr><td><code>git commit -m "..."</code></td><td>local</td><td>tira a foto, com descrição</td></tr>
+  <tr><td><code>git push</code></td><td>local → GitHub</td><td>envia os commits</td></tr>
+  <tr><td><code>git pull</code></td><td>GitHub → local</td><td>traz as atualizações</td></tr>
+  <tr><td><code>git status</code></td><td>local</td><td>mostra o que mudou e o que está separado</td></tr>
+  <tr><td><code>git log --oneline</code></td><td>local</td><td>lista o histórico resumido</td></tr>
+</table>
+
+<h2>3. Glossário</h2>
+
+<div class="grp">Fluxo e método</div>
+<dl>
+<dt>Gate</dt><dd>Ponto de aprovação no fim de uma fase. Só se avança com um "ok". <span class="ex">Ex.: a gestora aprova a Spec antes de qualquer código.</span></dd>
+<dt>PRD</dt><dd>Documento do "porquê": problema, público, hipótese e métrica de sucesso. <span class="ex">Ex.: "reduzir inscrições perdidas de 15% para 2%".</span></dd>
+<dt>Discovery</dt><dd>Fase de verificar se o problema é real antes de construir.</dd>
+<dt>Handoff</dt><dd>Entrega do design para o desenvolvimento (telas, estados, textos). Fica em pasta somente leitura e versionada; alimenta a Spec.</dd>
+<dt>Spec (especificação)</dt><dd>Documento do "o quê, exatamente": regras e critérios de aceite, versionado no repositório. Fonte da verdade.</dd>
+<dt>EARS</dt><dd>Formato de escrever requisitos: "QUANDO [evento], O SISTEMA DEVE [resposta]". Força a regra a ser testável.</dd>
+<dt>Critério de aceite</dt><dd>Condição objetiva que diz se a funcionalidade está pronta. Todo critério vira teste. <span class="ex">Ex.: workshop sem vagas recusa a inscrição.</span></dd>
+<dt>Critério negativo</dt><dd>Critério que diz o que o sistema deve impedir. <span class="ex">Ex.: usuário não pode cancelar a inscrição de outro.</span></dd>
+<dt>Threat model</dt><dd>Mapa do que pode dar errado (ataques e abusos) antes de programar.</dd>
+<dt>STRIDE</dt><dd>Checklist de 6 ameaças: falsificação de identidade, adulteração de dados, repúdio, vazamento de informação, negação de serviço e elevação de privilégio.</dd>
+<dt>Matriz perfil × recurso × ação</dt><dd>Tabela de quem pode fazer o quê com cada coisa. <span class="ex">Ex.: participante pode ler e cancelar a própria inscrição; não pode ler a de outros.</span></dd>
+<dt>ADR</dt><dd>Registro curto de uma decisão grande de arquitetura e do porquê.</dd>
+<dt>SDD</dt><dd>Spec-Driven Development: a Spec guia o código. Prática consolidada, não padrão oficial.</dd>
+<dt>TDD</dt><dd>Test-Driven Development: escrever o teste antes do código.</dd>
+<dt>Red / Green / Refactor</dt><dd>Red: teste falhando pelo motivo certo. Green: código mínimo para passar. Refactor: limpar sem mudar o comportamento.</dd>
+<dt>Falhar pelo motivo certo</dt><dd>O teste falha porque o comportamento está errado ("esperado 403, recebido 200"), não porque o teste está quebrado ("módulo não encontrado").</dd>
+<dt>Teste de abuso (abuse case)</dt><dd>Teste que tenta fazer o que um atacante faria. <span class="ex">Ex.: apagar a inscrição de outra pessoa.</span></dd>
+<dt>Modo rápido</dt><dd>Fluxo enxuto para mudanças pequenas e de baixo risco: spec curta + teste.</dd>
+<dt>AGENTS.md / constitution</dt><dd>Arquivos com regras permanentes para a IA seguir em todo o projeto.</dd>
+<dt>Spec Kit</dt><dd>Ferramenta do GitHub para trabalhar com Spec Driven Development.</dd>
+</dl>
+
+<div class="grp">Git e GitHub</div>
+<dl>
+<dt>Repositório</dt><dd>Pasta do projeto com o histórico guardado pelo Git (na pasta oculta <code>.git</code>).</dd>
+<dt>Branch</dt><dd>Cópia paralela do código para trabalhar sem mexer na versão oficial. <span class="ex">Ex.: <code>spec/inscricao-workshop</code>.</span></dd>
+<dt>main</dt><dd>Branch oficial. Protegida: só recebe mudanças via PR aprovado.</dd>
+<dt>Commit</dt><dd>"Foto" das mudanças, guardada <b>no seu computador</b>, com descrição. Não envia nada.</dd>
+<dt>Hash</dt><dd>Identificador único de um commit. <span class="ex">Ex.: 4cac5aa.</span></dd>
+<dt>Staging (área de espera)</dt><dd>Onde o <code>git add</code> deixa o que entrará no próximo commit.</dd>
+<dt>Working tree clean</dt><dd>Sem mudanças pendentes.</dd>
+<dt>Push / Pull</dt><dd>Push envia commits ao GitHub; pull traz do GitHub para o local.</dd>
+<dt>Pull Request (PR)</dt><dd>Pedido para incorporar sua branch na main, com espaço para revisão e comentários. <b>O PR é o pedido; o merge é a ação.</b></dd>
+<dt>PR rascunho (draft)</dt><dd>PR ainda não pronto para merge. Usado no Red, com CI vermelho de propósito.</dd>
+<dt>Merge / Squash and merge</dt><dd>Merge incorpora a branch na main. Squash junta todos os commits do PR em um só, deixando o histórico limpo.</dd>
+<dt>Diff</dt><dd>Comparação do antes e depois de um arquivo. É o que você lê para revisar o que a IA entregou.</dd>
+<dt>Proteção da main</dt><dd>Regras do GitHub: exige PR, CI verde e aprovação. Depende do plano do GitHub; confirmar antes de afirmar.</dd>
+<dt>CODEOWNERS</dt><dd>Arquivo que define quem deve aprovar mudanças em cada área. Cobre só áreas sensíveis (specs, ADRs, auth, permissões, migrações, CI).</dd>
+<dt>Conventional Commits</dt><dd>Padrão de prefixo na mensagem do commit: <code>feat</code>, <code>fix</code>, <code>docs</code>, <code>test</code>.</dd>
+</dl>
+
+<div class="grp">Qualidade e entrega</div>
+<dl>
+<dt>CI (integração contínua)</dt><dd>Robô que, a cada PR, roda lint, tipos, testes e varredura de segredos.</dd>
+<dt>CD / Release</dt><dd>Entrega automatizada do código aprovado para produção.</dd>
+<dt>Lint</dt><dd>Verificador automático de estilo e erros comuns no código.</dd>
+<dt>GitHub Actions</dt><dd>Ferramenta do GitHub que executa o CI.</dd>
+<dt>Docker Compose</dt><dd>Sobe o sistema e o banco na sua máquina de forma igual para todo o time.</dd>
+<dt>Teste unitário / de integração / E2E</dt><dd>Unitário testa uma peça; integração testa peças juntas (ex.: rota + banco); E2E simula o usuário no navegador.</dd>
+</dl>
+
+<div class="grp">Segurança</div>
+<dl>
+<dt>Autenticação vs autorização</dt><dd>Autenticação: quem é você? Autorização: o que você pode fazer? <span class="ex">Ex.: logar é autenticação; cancelar só a própria inscrição é autorização.</span></dd>
+<dt>Guard</dt><dd>Trecho do back-end que barra requisições sem permissão. A autorização real mora aqui, não no front-end nem no proxy do Next.js.</dd>
+<dt>OWASP Top 10</dt><dd>Lista das falhas de segurança web mais comuns.</dd>
+<dt>IDOR</dt><dd>Acessar o dado de outro trocando o ID na URL ou na chamada da API. A correção é verificar o dono no servidor; UUID só dificulta adivinhar, não protege.</dd>
+<dt>Mass assignment</dt><dd>O sistema aceita campos que o usuário não deveria enviar. <span class="ex">Ex.: enviar <code>"perfil":"admin"</code> ao se inscrever.</span></dd>
+<dt>Injection</dt><dd>Entrada do usuário interpretada como comando (ex.: SQL). Defesa: consultas parametrizadas e validação.</dd>
+<dt>XSS</dt><dd>Script malicioso injetado em uma página e executado no navegador de outro usuário.</dd>
+<dt>CSRF</dt><dd>Site malicioso faz o navegador do usuário logado enviar uma ação sem ele querer.</dd>
+<dt>CORS</dt><dd>Regra do navegador sobre quais sites podem chamar sua API. Configuração frouxa demais é risco.</dd>
+<dt>Open redirect</dt><dd>Link do seu site que redireciona para um endereço externo controlado pelo atacante.</dd>
+<dt>Rate limiting</dt><dd>Limite de tentativas por tempo. Freia força bruta e abuso.</dd>
+<dt>Cookie HttpOnly</dt><dd>Cookie que o JavaScript da página não consegue ler, reduzindo o roubo de sessão por XSS.</dd>
+<dt>Token curto + refresh rotativo</dt><dd>Credencial de sessão que expira rápido, renovada por outra que é trocada a cada uso.</dd>
+<dt>Argon2id / bcrypt</dt><dd>Algoritmos para guardar senhas como hash. Nunca guardar a senha em texto. O bcrypt tem limite de 72 bytes.</dd>
+<dt>Supply chain</dt><dd>Risco nas bibliotecas de terceiros que o projeto usa. Mitigação: versões corrigidas, revisão de dependências.</dd>
+<dt>CVE</dt><dd>Código público de uma vulnerabilidade conhecida. Confira sempre se a versão usada tem correção.</dd>
+<dt>Segredo</dt><dd>Senha, chave de API ou token. Nunca vai no código nem num prompt; o CI procura vazamentos.</dd>
+<dt>LGPD</dt><dd>Lei brasileira de proteção de dados. CPF é dado pessoal: sem logs, com máscara e prazo de retenção.</dd>
+</dl>
+
+<div class="grp">Operação</div>
+<dl>
+<dt>Contenção</dt><dd>Primeira ação num incidente: parar o estrago (desativar a rota, restaurar o dado) antes de investigar.</dd>
+<dt>Runbook</dt><dd>Roteiro passo a passo de o que fazer quando algo específico quebra.</dd>
+<dt>Postmortem</dt><dd>Relato curto de um incidente: o que houve, a causa e o que mudaremos. Foca no processo, não em culpados.</dd>
+<dt>SLO</dt><dd>Meta de qualidade do serviço. <span class="ex">Ex.: 99,5% das inscrições concluídas em até 2 segundos.</span> Formalizar só depois do MVP.</dd>
+<dt>Backup testado</dt><dd>Cópia dos dados que já foi restaurada ao menos uma vez para provar que funciona.</dd>
+<dt>Feedback loop</dt><dd>Aprendizado da operação voltando para a Spec: bug → Spec → teste → correção.</dd>
+</dl>
+</main>
+</body>
+</html>

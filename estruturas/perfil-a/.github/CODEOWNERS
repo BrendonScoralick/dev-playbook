@@ -1,0 +1,10 @@
+# Só áreas sensíveis. Troque <responsavel> pelo usuário do GitHub de quem aprova.
+# O GitHub só exige essa aprovação se a proteção da main estiver ativa (depende do plano).
+
+/specs/                      <responsavel>
+/docs/adr/                   <responsavel>
+/docs/threat-model.md        <responsavel>
+/backend/src/auth/           <responsavel>
+/backend/src/guards/         <responsavel>
+/backend/prisma/migrations/  <responsavel>
+/.github/                    <responsavel>

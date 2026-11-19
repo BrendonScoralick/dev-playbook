@@ -1,0 +1,7 @@
+﻿.claude/settings.local.json
+.DS_Store
+Thumbs.db
+*.log
+
+# Skills de terceiros: reinstalar a partir do skills-lock.json (npx skills experimental_install)
+.claude/skills/
