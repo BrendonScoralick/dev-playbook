@@ -1,0 +1,22 @@
+# Dependências e builds
+node_modules/
+dist/
+build/
+.next/
+coverage/
+playwright-report/
+test-results/
+
+# Ambiente e segredos
+.env
+.env.*
+!.env.example
+
+# Cópia local do método (dev-playbook), só para consulta da IA
+.dev-playbook/
+
+# Configurações locais
+.claude/settings.local.json
+.DS_Store
+Thumbs.db
+*.log

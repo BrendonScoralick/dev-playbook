@@ -2,10 +2,28 @@
 
 Método pessoal de desenvolvimento de software assistido por IA, do PRD à operação. Todo sistema novo **nasce daqui** e **devolve para cá** o que aprendeu.
 
-Versão do modelo: veja [CHANGELOG.md](CHANGELOG.md).
+Versão do modelo: veja [CHANGELOG.md](CHANGELOG.md). Este repositório é também um **plugin do Claude Code**.
+
+## Instalar o plugin
+
+No Claude Code (um comando só):
+```
+/plugin install dev-playbook --marketplace BrendonScoralick/dev-playbook
+```
+Ou no terminal: `claude plugin marketplace add BrendonScoralick/dev-playbook` e `claude plugin install dev-playbook@dev-playbook`.
+O repositório é privado: o Claude Code usa o login do GitHub da máquina. Atualizar: `claude plugin update dev-playbook@dev-playbook` e reiniciar.
+
+O plugin traz:
+- `/dev-playbook:novo-sistema`: cria um sistema novo (entrevista, estrutura do perfil, estado, ADR 0001, próximo passo).
+- `/dev-playbook:metodo`: índice do método; a IA o consulta sob demanda em cada etapa.
+
+Custo de contexto (medido com `claude plugin details`): cerca de 400 tokens fixos por sessão; o conteúdo só é lido quando usado.
+
+## Estrutura
 
 ```
 dev-playbook/
+├── .claude-plugin/         plugin.json (o plugin) e marketplace.json (o catálogo)
 ├── README.md               este índice
 ├── CLAUDE.md               regras para a IA ao trabalhar NESTE repositório
 ├── CHANGELOG.md            versões do modelo
@@ -31,12 +49,13 @@ dev-playbook/
 │   │                       threat-model · adr · retro · prompt-design
 │   └── mentoria/           agente-mentor.md
 ├── estruturas/             arquivos copiados para o repositório de cada sistema
-│   └── perfil-a/           (perfil-b/ entra no primeiro projeto do Perfil B)
-├── skills/                 skills próprias e adaptadas; embrião do plugin (v1.1)
-└── .claude/                settings.json do playbook; skills instaladas (fora do Git)
+│   ├── perfil-a/           NestJS + PostgreSQL (rascunho não testado)
+│   └── perfil-b/           Next.js + Supabase + Vercel (rascunho não testado)
+├── skills/                 skills do plugin: novo-sistema, metodo
+└── .claude/                settings.json do playbook; skills de terceiros instaladas (fora do Git)
 ```
 
-## Ao clonar este repositório
+## Ao clonar este repositório (para manter o playbook)
 
 As skills de terceiros não são versionadas (`.claude/skills/` está no `.gitignore`). Reinstale as versões exatas registradas no `skills-lock.json`:
 
@@ -59,12 +78,18 @@ Antes de instalar, leia o `SKILL.md` de cada uma: skills rodam com todas as perm
 
 **Passo a passo completo:** [`metodo/fluxo/iniciar-sistema.md`](metodo/fluxo/iniciar-sistema.md). Resumo:
 
-1. Decidir o perfil (A ou B) e a rota (B, protótipo primeiro, é a habitual); escrever o brief.
-2. Criar o repositório do sistema (separado deste).
-3. Copiar `estruturas/<perfil>/` para a raiz do sistema e `metodo/` para `.dev-playbook/metodo/` (fora do Git).
-4. Preencher os modelos (README com **"nasceu do dev-playbook vX.Y.Z"**, `CLAUDE.md`, `docs/estado.md`) e montar a fundação técnica.
-5. Trabalhar no ciclo de `metodo/fluxo/ciclo.md`, guiado por `metodo/fluxo/proximo-passo.md`.
-6. Ao aprender algo útil para todos os sistemas, trazer a lição de volta para cá e registrar no `CHANGELOG.md`.
+1. Com o plugin instalado, abrir o Claude Code numa pasta vazia e digitar `/dev-playbook:novo-sistema`.
+2. Responder à entrevista (brief, perfil A ou B, rota; a habitual é protótipo primeiro).
+3. Montar a fundação técnica (frontend e backend) e criar o repositório no GitHub.
+4. Trabalhar no ciclo de `metodo/fluxo/ciclo.md`, guiado pelo próximo passo (`/dev-playbook:metodo`).
+5. Ao aprender algo útil para todos os sistemas, trazer a lição de volta para cá, registrar no `CHANGELOG.md` e publicar uma nova versão do plugin.
+
+## Publicar uma nova versão do plugin
+
+1. `claude plugin validate .` na raiz (precisa passar).
+2. Subir a versão em `.claude-plugin/plugin.json` e registrar no `CHANGELOG.md`.
+3. Commit, tag (`vX.Y.Z`) e push (incluindo a tag).
+4. Em cada máquina: `claude plugin update dev-playbook@dev-playbook`.
 
 ## Regras do playbook
 

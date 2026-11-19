@@ -52,7 +52,6 @@ O navegador **nunca** é a garantia: ele tem a chave publicável e pode falar di
 ├── supabase/                        migrações (inclui RLS), testes de RLS, seed fictício
 ├── e2e/ · specs/ · handoff/ · docs/ — iguais ao Perfil A
 ├── .github/ · .claude/ · .gitignore · .env.example · README.md · CLAUDE.md — iguais ao Perfil A
-├── .dev-playbook/metodo/            cópia do método para consulta da IA (fora do Git) — igual ao Perfil A
 ```
 
 | Perfil A | Perfil B |
@@ -67,7 +66,7 @@ O navegador **nunca** é a garantia: ele tem a chave publicável e pode falar di
 
 **Proteção:** todo arquivo de `backend/` que acessa banco, segredos ou regras começa com `import "server-only"`, para o build falhar se uma tela o importar (confirmar o uso atual na documentação). Telas nunca importam `backend/` diretamente; só as rotas de API e server actions.
 
-A estrutura própria deste perfil (`estruturas/perfil-b/`) será criada no primeiro projeto real nele, reaproveitando `estruturas/perfil-a/`.
+A estrutura própria deste perfil está em `estruturas/perfil-b/` (rascunho derivado do Perfil A, ainda não testado): sem `docker-compose.yml`, `.env.example` com chaves publicável e secreta, CODEOWNERS com `supabase/migrations/`, regras de RLS e `server-only` no `CLAUDE.md`, e verificação de `sb_secret_` no CI (a ativar).
 
 ## Stack
 
@@ -107,7 +106,7 @@ Os repositórios de **fluxo** (Superpowers, Spec Kit, BMAD, GSD, Ponytail) valem
 |---|---|---|
 | **`with-supabase`** (exemplo oficial do Next.js, mantido com o Supabase): `npx create-next-app --example with-supabase` | **Referência principal** para autenticação por cookies (servidor e navegador) e configuração das chaves | Já usa a chave publicável nova (`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`). Conferir o README atual antes de seguir os passos |
 
-Ao fazer o primeiro projeto neste perfil: montar `estruturas/perfil-b/` a partir de `estruturas/perfil-a/` e trazer do `with-supabase` só o trecho de autenticação. Os starters comunitários estão no `radar.md`.
+Ao fazer o primeiro projeto neste perfil: partir de `estruturas/perfil-b/` e trazer do `with-supabase` só o trecho de autenticação, corrigindo a estrutura com o que o projeto ensinar. Os starters comunitários estão no `radar.md`.
 
 ## Regras de segurança específicas
 - **RLS em toda tabela**, com políticas para ler, criar, alterar e apagar. Tabela sem RLS = tabela aberta para qualquer um com a chave publicável.

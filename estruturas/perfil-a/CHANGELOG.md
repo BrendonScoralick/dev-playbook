@@ -1,6 +1,6 @@
 # Histórico do <sistema>
 
-Formato: versão semântica (`MAIOR.MENOR.CORREÇÃO`). Ver `.dev-playbook/metodo/fluxo/versoes-e-releases.md`.
+Formato: versão semântica (`MAIOR.MENOR.CORREÇÃO`). Ver `metodo/fluxo/versoes-e-releases.md`.
 
 ## [Não lançado]
 ### Adicionado

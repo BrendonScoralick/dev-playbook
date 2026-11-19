@@ -2,7 +2,7 @@
 # - Confira na documentação oficial a versão atual de cada action/imagem e FIXE a versão
 #   (de preferência pelo SHA do commit; ver checklist de segurança S-27).
 # - Os comandos do Gitleaks e do Semgrep foram montados a partir da documentação pública
-#   em 2026-11-19 (ver .dev-playbook/metodo/stack/perfil-a-corporativo.md) e precisam ser testados no primeiro PR.
+#   em 2026-11-19 (ver metodo/stack/perfil-a-corporativo.md) e precisam ser testados no primeiro PR.
 
 name: ci
 
@@ -26,7 +26,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm audit --audit-level=high  # S-20: falha com vulnerabilidade alta
-      - run: npm run verificar
+      # O Gitleaks roda no job 'segredos'; aqui só lint, tipos e testes.
+      - run: npm run lint
+      - run: npm run tipos
+      - run: npm run test
 
   segredos:
     name: Segredos (Gitleaks)

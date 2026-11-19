@@ -1,8 +1,17 @@
-# Skills próprias e adaptadas
+# Skills do plugin dev-playbook
 
-Pasta para skills do dev-playbook e **embrião do plugin** planejado para a v1.1 (ver `CHANGELOG.md`): em vez de copiar conteúdo para cada sistema, as skills serão instaladas como plugin do Claude Code.
+Esta pasta contém as **skills do plugin** `dev-playbook` (o repositório inteiro é o plugin: ver `.claude-plugin/`). Cada subpasta com `SKILL.md` vira uma skill chamada `/dev-playbook:<nome>`. Os arquivos do plugin ficam acessíveis às skills por `${CLAUDE_PLUGIN_ROOT}`.
 
-Ainda vazia: as skills entram aqui **depois do piloto** (ver `metodo/stack/perfil-a-corporativo.md`, seção "Skills do Claude Code").
+Skills de terceiros adaptadas entram aqui **depois do piloto** (ver `metodo/stack/perfil-a-corporativo.md`, seção "Skills do Claude Code").
+
+## Skills prontas
+
+| Skill | O que faz | Situação |
+|---|---|---|
+| `/dev-playbook:novo-sistema` | Entrevista (brief, perfil, rota, restrições), copia a estrutura do perfil, preenche modelos, cria `docs/estado.md` e o ADR 0001, entrega o próximo passo e o Prompt 1 do Claude Design preenchido | Script testado (perfis A e B) e plugin instalado em teste; ainda não usada num sistema real |
+| `/dev-playbook:metodo` | Índice do método: diz qual arquivo de `metodo/` ler em cada situação (próximo passo, PRD, Spec, testes, revisão, segurança, release) | Nova |
+
+**Instalação:** veja "Instalar o plugin" no `README.md` da raiz. Ao mudar uma skill: `claude plugin validate .` na raiz, nova versão em `.claude-plugin/plugin.json`, commit, tag e push; depois `claude plugin update dev-playbook@dev-playbook`.
 
 ## Regra para skill adaptada (fork)
 
@@ -33,10 +42,9 @@ Mudanças: <o que foi adaptado ao dev-playbook e por quê>
 Isto é um resumo prático, não aconselhamento jurídico.
 
 ## Skills próprias planejadas
-- `novo-sistema`: monta o repositório de um sistema a partir de `estruturas/<perfil>/`.
 - `spec-ears`: escreve e confere critérios EARS, incluindo negativos.
 - `revisao-ia`: aplica `metodo/checklists/revisao-codigo-ia.md` ao diff.
 - `atualizar-playbook`: executa `metodo/checklists/manutencao-do-playbook.md`.
-- `proximo-passo`: lê `docs/estado.md`, as Issues e os arquivos do sistema e responde a fase atual e o próximo passo (`metodo/fluxo/proximo-passo.md`).
+- `proximo-passo`: lê `docs/estado.md`, as Issues e os arquivos do sistema e responde a fase atual e o próximo passo (hoje coberto pela skill `metodo`).
 
 Criar com a skill `skill-creator`, testando antes de adotar.

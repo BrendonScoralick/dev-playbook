@@ -1,0 +1,15 @@
+{
+  "name": "<sistema>",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "lint": "npm run lint --workspaces --if-present",
+    "tipos": "npm run tipos --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "segredos": "gitleaks git --staged --redact",
+    "verificar": "npm run lint && npm run tipos && npm run test && npm run segredos"
+  }
+}

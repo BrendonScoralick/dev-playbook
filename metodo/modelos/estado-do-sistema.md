@@ -31,4 +31,4 @@ Atualizado em: <aaaa-mm-dd>
 - <pendência> → <quem decide>
 
 ## Próximo passo
-<uma frase, seguindo `.dev-playbook/metodo/fluxo/proximo-passo.md`>
+<uma frase, seguindo `metodo/fluxo/proximo-passo.md`>

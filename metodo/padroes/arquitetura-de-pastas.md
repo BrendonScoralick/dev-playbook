@@ -47,8 +47,7 @@ Nem tudo precisa existir no primeiro dia: crie `docs/`, `specs/`, `handoff/` e `
 ├── package.json                     workspaces (frontend, backend) e script `verificar`
 ├── .nvmrc                           versão do Node
 ├── CHANGELOG.md                     histórico do sistema (versão semântica)
-├── .dev-playbook/metodo/            cópia do método para a IA consultar (IGNORADA pelo Git)
-├── .gitignore                       inclui .env e .dev-playbook/
+├── .gitignore                       inclui .env (e .dev-playbook/, para o uso sem plugin)
 ├── .env.example                     sem segredos
 ├── docker-compose.yml               PostgreSQL (porta só local)
 ├── README.md                        "nasceu do dev-playbook vX.Y", como rodar, desvios do modelo

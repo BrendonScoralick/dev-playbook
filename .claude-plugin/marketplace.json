@@ -1,0 +1,14 @@
+{
+  "name": "dev-playbook",
+  "description": "Marketplace pessoal com o plugin dev-playbook.",
+  "owner": {
+    "name": "dev-playbook"
+  },
+  "plugins": [
+    {
+      "name": "dev-playbook",
+      "source": "./",
+      "description": "Método de desenvolvimento assistido por IA: criar sistemas e consultar o método."
+    }
+  ]
+}

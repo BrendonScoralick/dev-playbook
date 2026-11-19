@@ -2,22 +2,22 @@
      Ao copiar para um sistema, preencha <nome> e <X.Y> e apague este comentário. -->
 # Instruções para a IA neste sistema
 
-Sistema: <nome>. Nasceu do modelo dev-playbook v<X.Y>. Regras curtas de propósito: os detalhes estão em `specs/`, `docs/` e no `README.md`; leia só o que a tarefa pedir. O método vem do dev-playbook, copiado em `.dev-playbook/` (fora do Git). Quando um arquivo do método citar `metodo/...`, o caminho neste sistema é `.dev-playbook/metodo/...`. O empacotamento como plugin está planejado para a v1.1.
+Sistema: <nome>. Nasceu do modelo dev-playbook v<X.Y>. Regras curtas de propósito: os detalhes estão em `specs/`, `docs/` e no `README.md`; leia só o que a tarefa pedir. O método vem do **plugin dev-playbook** (declarado em `.claude/settings.json`): use a skill `/dev-playbook:metodo` para saber qual arquivo do método ler em cada situação. Se o plugin não estiver instalado, avise antes de seguir.
 
 ## Início de cada sessão
-- Leia `docs/estado.md` e as Issues abertas (`gh issue list`) e diga em 3 linhas: fase atual, gate em andamento e **próximo passo** (tabela de próximo passo do dev-playbook).
+- Leia `docs/estado.md` e as Issues abertas (`gh issue list`) e diga em 3 linhas: fase atual, gate em andamento e **próximo passo** (skill `/dev-playbook:metodo`).
 - Ao cumprir um gate ou mudar uma pendência, **proponha** a atualização do `docs/estado.md`; só altere com aprovação.
 
-## Quando consultar o método (cópia local em `.dev-playbook/metodo/`, só leitura)
-| Momento | Arquivo |
+## Quando consultar o método (skill `/dev-playbook:metodo`)
+| Momento | O que consultar |
 |---|---|
-| Início da sessão | `.dev-playbook/metodo/fluxo/proximo-passo.md` |
-| Escrever ou revisar Spec | `.dev-playbook/metodo/modelos/spec.md`, `.dev-playbook/metodo/padroes/contratos-de-api.md` |
-| Planejar tarefas | `.dev-playbook/metodo/modelos/tarefas.md` |
-| Escrever testes | `.dev-playbook/metodo/padroes/estrategia-de-testes.md` |
-| Fim de cada tarefa | `.dev-playbook/metodo/modelos/relatorio-de-tarefa.md`, `.dev-playbook/metodo/fluxo/definicao-de-pronto.md` |
-| Auth, permissões, dados pessoais, exportação | `.dev-playbook/metodo/checklists/seguranca.md` |
-Nunca altere `.dev-playbook/`: é uma cópia de consulta. Se faltar, diga que não encontrou em vez de supor o conteúdo.
+| Início da sessão | Próximo passo (junto com `docs/estado.md` e as Issues) |
+| Escrever ou revisar Spec | Modelo de Spec e contratos de API |
+| Planejar tarefas | Modelo de tarefas |
+| Escrever testes | Estratégia de testes |
+| Fim de cada tarefa | Relatório de tarefa e definição de pronto |
+| Auth, permissões, dados pessoais, exportação | Checklist de segurança |
+Nunca altere os arquivos do plugin: melhorias vão para o repositório do dev-playbook. Se um arquivo não existir, diga que não encontrou em vez de supor o conteúdo.
 
 ## Fluxo
 - Trabalhe numa tarefa de `specs/<NNN>/tarefas.md` por vez, com Issue. Leia antes `spec.md` e `tarefas.md` da mesma pasta.

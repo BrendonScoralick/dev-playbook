@@ -90,7 +90,7 @@ Regras obrigatórias em `metodo/checklists/seguranca.md` (S-32). Nomes exatos, v
 | Feature flags | Ligar e desligar funcionalidades sem deploy | Releases graduais ou testes com parte dos usuários | Guardado |
 | SLOs formais, métricas avançadas, *tracing* | Metas de serviço e observabilidade detalhada | Sistema em uso real | Guardado |
 | Schemas Zod compartilhados (`packages/schemas`, monorepo) | Um schema para frontend e backend | Quando a duplicação de validação incomodar | Guardado (decidir em ADR) |
-| **Plugin do Claude Code + marketplace no próprio dev-playbook** | Empacota skills (próximo passo, Spec, revisão, relatório, retro), checklists e hooks; cada sistema declara a versão aprovada em vez de copiar conteúdo | **v1.1**, depois do sistema de treino; verificar formato de plugin/marketplace e uso com repositório privado | **Pilotar** |
+| **Plugin do Claude Code + marketplace no próprio dev-playbook** | Empacota as skills e o método; cada sistema declara o plugin em vez de copiar conteúdo | — | **Adotado na v1.1.0** (ver README, "Instalar o plugin"); hooks continuam por sistema |
 | Repositório-modelo do GitHub (template repository) | "Usar este modelo" para criar sistemas | Quando as `estruturas/` estabilizarem | Guardado |
 | Rotina agendada de manutenção (skill `schedule`) | Agente na nuvem que abre PR de atualização | Depois de algumas manutenções manuais confiáveis | Guardado |
 

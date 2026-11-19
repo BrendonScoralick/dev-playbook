@@ -15,7 +15,7 @@
 
 ## Preparação
 Passo a passo detalhado em `metodo/fluxo/iniciar-sistema.md`.
-- [ ] Método copiado para `.dev-playbook/metodo/` e **fora do Git** (conferido com `git status`).
+- [ ] **Plugin dev-playbook instalado** (`/dev-playbook:metodo` e `/dev-playbook:novo-sistema` aparecem ao digitar `/`).
 - [ ] Repositório criado a partir de `estruturas/perfil-a/`; README diz "nasceu do dev-playbook vX.Y.Z".
 - [ ] `docs/estado.md` criado a partir de `metodo/modelos/estado-do-sistema.md`, com rota, fase e (rota B) o brief.
 - [ ] Documento original guardado em `docs/origem/` (no repositório do sistema, nunca no dev-playbook).

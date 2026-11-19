@@ -16,7 +16,7 @@ Formato: **QUANDO** <evento>, **O SISTEMA DEVE** <resposta>. Todo critério vira
 | CA-03 | QUANDO um perfil sem permissão ..., O SISTEMA DEVE responder 403 | permissão | |
 
 ## Contrato da API
-Padrões em `.dev-playbook/metodo/padroes/contratos-de-api.md` (erros em RFC 9457, listas paginadas, datas UTC).
+Padrões em `metodo/padroes/contratos-de-api.md` do dev-playbook (skill `/dev-playbook:metodo`) (erros em RFC 9457, listas paginadas, datas UTC).
 
 ### `<MÉTODO> /<rota>`
 - **Perfil exigido:** <perfil / módulo / nível>

@@ -1,4 +1,12 @@
 {
+  "extraKnownMarketplaces": {
+    "dev-playbook": {
+      "source": { "source": "github", "repo": "<repositorio-do-playbook>" }
+    }
+  },
+  "enabledPlugins": {
+    "dev-playbook@dev-playbook": true
+  },
   "permissions": {
     "deny": [
       "Read(**/.env)",

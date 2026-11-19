@@ -6,7 +6,9 @@ Nasceu do modelo **dev-playbook v<X.Y>** em <aaaa-mm-dd>.
 
 ## Estrutura esperada
 
-Resumo abaixo; versão completa (anatomia de módulo, onde mora cada decisão) em `.dev-playbook/metodo/padroes/arquitetura-de-pastas.md`.
+> Caminhos `metodo/...` citados aqui são arquivos do **plugin dev-playbook** (consulte pela skill `/dev-playbook:metodo`).
+
+Resumo abaixo; versão completa (anatomia de módulo, onde mora cada decisão) em `metodo/padroes/arquitetura-de-pastas.md`.
 
 ```
 <sistema>/
@@ -19,7 +21,7 @@ Resumo abaixo; versão completa (anatomia de módulo, onde mora cada decisão) e
 │   └── tests/
 ├── e2e/                Playwright
 ├── specs/              uma pasta por funcionalidade: <NNN>-<nome>/spec.md + tarefas.md
-│                       (modelos: .dev-playbook/metodo/modelos/spec.md e tarefas.md)
+│                       (modelos: metodo/modelos/spec.md e tarefas.md)
 ├── handoff/            protótipo e inventário (somente leitura)
 ├── docs/
 │   ├── origem/         pedido ou documento original
@@ -28,13 +30,13 @@ Resumo abaixo; versão completa (anatomia de módulo, onde mora cada decisão) e
 │   ├── adr/
 │   └── api/
 ├── .github/            workflows · ISSUE_TEMPLATE · CODEOWNERS · pull_request_template.md
-├── .dev-playbook/metodo/  cópia do método para consulta da IA (fora do Git)
 ├── .gitignore · .env.example · docker-compose.yml
 ├── README.md
 └── CLAUDE.md
 ```
 
 ## Antes do primeiro commit (apague esta seção depois)
+0. Ter o **plugin dev-playbook** instalado (o `.claude/settings.json` já o declara): `claude plugin install dev-playbook@dev-playbook` após adicionar o marketplace.
 1. Criar os workspaces `frontend/` e `backend/`, cada um com os scripts `lint`, `tipos` e `test` (o `package.json` da raiz os chama).
 2. Instalar o **Gitleaks** localmente (usado por `npm run segredos`) e conferir as opções atuais na documentação oficial.
 3. Conferir a versão LTS do Node (`.nvmrc`), da imagem do PostgreSQL (`docker-compose.yml`) e fixar as versões das actions (`.github/workflows/ci.yml`).
