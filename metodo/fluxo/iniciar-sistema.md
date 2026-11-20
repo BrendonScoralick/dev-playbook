@@ -53,6 +53,14 @@ O **protótipo** acontece no Claude Design, fora do repositório: ele pode come�
 - Para atualizar depois: `claude plugin update dev-playbook@dev-playbook` (e reiniciar o Claude Code).
 - ✅ **Pronto quando:** ao digitar `/` aparecem `dev-playbook:novo-sistema` e `dev-playbook:metodo`.
 
+**Passo 2b. Instalar as skills de terceiros que o método usa**
+- O plugin não traz o `grill-me` e o `grill-with-docs` (usados antes dos gates do PRD e da Spec). Instale-os no nível de usuário (`-g`, vale em qualquer pasta):
+  ```
+  npx skills add https://github.com/mattpocock/skills --skill grill-me --skill grill-with-docs -g
+  ```
+- Leia o `SKILL.md` de cada uma antes (rodam com todas as permissões do agente).
+- ✅ **Pronto quando:** `/grill-me` e `/grill-with-docs` aparecem ao digitar `/`.
+
 ---
 
 ## Etapa 1: decidir

@@ -2,6 +2,14 @@
 
 Formato: a versão sobe o número do meio quando um modelo, checklist ou padrão muda; sobe o primeiro número quando o fluxo muda de forma incompatível.
 
+## v1.1.1 (2026-11-19)
+
+Ajustes da revisão do plugin antes do primeiro uso em outra máquina.
+
+- **Dependências fora do plugin documentadas:** `grill-me` e `grill-with-docs` não vêm no plugin; instalação no nível de usuário (`npx skills add ... -g`) no passo 2b de `iniciar-sistema.md` e no README.
+- **`/dev-playbook:novo-sistema`:** confere se a máquina é Windows (o script usa PowerShell e `robocopy`; em macOS/Linux orienta a cópia manual) e se as skills de interrogatório estão disponíveis.
+- **`CLAUDE.md` dos sistemas:** `gh issue list` só se o `gh` estiver instalado; senão, pede a lista ao usuário.
+
 ## v1.1.0 (2026-11-19)
 
 O playbook vira um **plugin do Claude Code**: o método é instalado uma vez e serve a todos os sistemas.

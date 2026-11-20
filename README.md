@@ -19,6 +19,10 @@ O plugin traz:
 
 Custo de contexto (medido com `claude plugin details`): cerca de 400 tokens fixos por sessão; o conteúdo só é lido quando usado.
 
+**Requisitos fora do plugin:**
+- Skills de terceiros usadas pelo método: `npx skills add https://github.com/mattpocock/skills --skill grill-me --skill grill-with-docs -g`.
+- O script do `/dev-playbook:novo-sistema` é PowerShell (Windows). Em macOS/Linux, a skill orienta a cópia manual.
+
 ## Estrutura
 
 ```

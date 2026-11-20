@@ -5,7 +5,7 @@
 Sistema: <nome>. Nasceu do modelo dev-playbook v<X.Y>. Regras curtas de propósito: os detalhes estão em `specs/`, `docs/` e no `README.md`; leia só o que a tarefa pedir. O método vem do **plugin dev-playbook** (declarado em `.claude/settings.json`): use a skill `/dev-playbook:metodo` para saber qual arquivo do método ler em cada situação. Se o plugin não estiver instalado, avise antes de seguir.
 
 ## Início de cada sessão
-- Leia `docs/estado.md` e as Issues abertas (`gh issue list`) e diga em 3 linhas: fase atual, gate em andamento e **próximo passo** (skill `/dev-playbook:metodo`).
+- Leia `docs/estado.md` e as Issues abertas (`gh issue list`, se o `gh` estiver instalado; senão, peça a lista ao usuário) e diga em 3 linhas: fase atual, gate em andamento e **próximo passo** (skill `/dev-playbook:metodo`).
 - Ao cumprir um gate ou mudar uma pendência, **proponha** a atualização do `docs/estado.md`; só altere com aprovação.
 
 ## Quando consultar o método (skill `/dev-playbook:metodo`)

@@ -11,8 +11,10 @@ Os arquivos do plugin estão em `${CLAUDE_PLUGIN_ROOT}`: estruturas em `${CLAUDE
 
 **Gates:** pare e espere a confirmação do usuário nos pontos marcados com **[GATE]**. Nunca faça commit, push, criação de repositório no GitHub ou instalação de dependências sem pedido explícito.
 
-## 0. Conferência
-A pasta atual deve ser a pasta **do sistema novo**, vazia (pode ter só `.git`). Se não estiver vazia, pare e pergunte qual pasta usar.
+## 0. Conferências
+1. A pasta atual deve ser a pasta **do sistema novo**, vazia (pode ter só `.git`). Se não estiver vazia, pare e pergunte qual pasta usar.
+2. O script do passo 2 é **PowerShell para Windows** (usa `robocopy`). Em macOS ou Linux, faça a cópia e o preenchimento à mão seguindo `${CLAUDE_PLUGIN_ROOT}/metodo/fluxo/iniciar-sistema.md` (passos 5 a 7) e avise o usuário.
+3. Confira se as skills `/grill-me` e `/grill-with-docs` estão disponíveis (o método as usa nos gates do PRD e da Spec). Se não estiverem, informe o comando de instalação do passo 2 de `iniciar-sistema.md`; não instale sem pedido.
 
 ## 1. Entrevista (uma pergunta por vez)
 Faça as perguntas uma de cada vez, no estilo de interrogatório: se a resposta for vaga, pergunte de novo até ficar clara. Não responda no lugar do usuário; ofereça opções só quando houver escolha fechada.
