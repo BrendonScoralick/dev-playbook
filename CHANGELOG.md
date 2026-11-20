@@ -2,6 +2,15 @@
 
 Formato: a versão sobe o número do meio quando um modelo, checklist ou padrão muda; sobe o primeiro número quando o fluxo muda de forma incompatível.
 
+## v1.1.2 (2026-11-20)
+
+Correções de consistência encontradas numa leitura completa do repositório.
+
+- **CHANGELOG:** as entradas da v1.1.0 sobre a skill `/dev-playbook:metodo` e o `/novo-sistema` tinham perdido `${CLAUDE_PLUGIN_ROOT}` (crases vazias, provável expansão pelo shell ao escrever); texto restaurado.
+- **Manutenção do playbook:** a revisão de fatos perecíveis cobria só `perfil-a-corporativo.md`; agora inclui `perfil-b-supabase-vercel.md` e `radar.md`, que também têm fatos datados. Seções renumeradas (havia duas seções "4").
+- **Agente mentor:** o item 9 manda registrar o fato no arquivo de stack do perfil a que ele se refere (A, B) ou no radar, em vez de sempre no Perfil A.
+- **Checklist de segurança:** S-29 voltou para a ordem numérica (estava depois da S-33).
+
 ## v1.1.1 (2026-11-19)
 
 Ajustes da revisão do plugin antes do primeiro uso em outra máquina.
@@ -15,13 +24,13 @@ Ajustes da revisão do plugin antes do primeiro uso em outra máquina.
 O playbook vira um **plugin do Claude Code**: o método é instalado uma vez e serve a todos os sistemas.
 
 - **Plugin dev-playbook:** .claude-plugin/plugin.json e .claude-plugin/marketplace.json (plugin e catálogo no mesmo repositório, source: "./"). Instalação: `/plugin install dev-playbook --marketplace BrendonScoralick/dev-playbook`. Validado com `claude plugin validate .` (só avisos: autor, CLAUDE.md na raiz, licença/ícone exigidos apenas pelo diretório público). Instalado em escopo local numa pasta temporária, conferido com `claude plugin details` (2 skills, ~390 tokens fixos por sessão) e removido.
-- **Skill /dev-playbook:metodo (nova):** índice do método; diz qual arquivo de metodo/ ler em cada situação, via ``.
+- **Skill /dev-playbook:metodo (nova):** índice do método; diz qual arquivo de metodo/ ler em cada situação, via `${CLAUDE_PLUGIN_ROOT}`.
 - **Sistemas sem cópia do método:** CLAUDE.md dos dois perfis consulta `/dev-playbook:metodo`; .claude/settings.json dos sistemas declara o marketplace e habilita o plugin (extraKnownMarketplaces, enabledPlugins). A cópia .dev-playbook/ virou alternativa para uso sem plugin (-CopiarMetodo). Hooks continuam por sistema (hook de plugin valeria em todos os projetos da máquina).
 - **Início automatizado (`/novo-sistema`):** skill própria em `skills/novo-sistema/` que entrevista (nome, brief, perfil com critérios, rota, responsável, restrições), roda `scripts/novo-sistema.ps1` (copia a estrutura do perfil e o método para `.dev-playbook/`, preenche nome/versão/data/responsável, cria `.env` e `docs/estado.md`, `git init`), preenche `docs/estado.md` e o ADR 0001 e entrega o Prompt 1 do Claude Design já preenchido. Script testado nos perfis A e B (em pasta temporária); instalação no `skills/README.md`.
 - **Correção no CI dos dois perfis:** o job `verificar` chamava `npm run verificar`, que inclui o Gitleaks local (não instalado no runner); agora roda `lint`, `tipos` e `test`, e o Gitleaks fica só no job `segredos`.
 - **Roteiro de início com o jeito automático:** `iniciar-sistema.md` ganhou a seção "Dois jeitos de começar" (automático com `/novo-sistema` × manual), os passos 2b (instalar a skill no nível de usuário) e 2c (`DEV_PLAYBOOK`), o atalho na Etapa 1, a tabela de preenchimento completa (package.json, ADR 0001, `.env` por perfil, brief no estado), as diferenças do Perfil B na fundação técnica, a versão do playbook como `vX.Y.Z` e skill/ADR no glossário.
 - **`estruturas/perfil-b/` criado** como rascunho a partir do A: sem `docker-compose.yml`, `.env.example` com chaves publicável/secreta, CODEOWNERS e `CLAUDE.md` com RLS, `server-only` e chave secreta só no backend, dependabot sem Docker, verificação de `sb_secret_` no CI (comentada até existir build).
-- **/novo-sistema dentro do plugin:** usa `` (sem variável DEV_PLAYBOOK nem instalação manual); o script lê a versão e o repositório em .claude-plugin/plugin.json e preenche o .claude/settings.json do sistema. Testado a partir da pasta do plugin.
+- **/novo-sistema dentro do plugin:** usa `${CLAUDE_PLUGIN_ROOT}` (sem variável DEV_PLAYBOOK nem instalação manual); o script lê a versão e o repositório em .claude-plugin/plugin.json e preenche o .claude/settings.json do sistema. Testado a partir da pasta do plugin.
 - **Documentação:** README com "Instalar o plugin" e "Publicar uma nova versão"; roteiro iniciar-sistema.md com o passo 2 de instalação do plugin, cópia só da estrutura e seção "Sem o plugin"; skills/README.md, checklist de início, árvores de pastas e CLAUDE.md do playbook atualizados.
 
 ## v1.0.0 (2026-11-19)
