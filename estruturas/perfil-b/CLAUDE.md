@@ -42,6 +42,7 @@ Nunca altere os arquivos do plugin: melhorias vão para o repositório do dev-pl
 - Regras de negócio em `backend/src/<dominio>/<dominio>.service.ts`, chamadas só por rotas de API (`frontend/src/app/api/`) ou server actions. Arquivos do `backend/` começam com `import "server-only"`. **Telas nunca importam o `backend/`.**
 - Chave **secreta** do Supabase só em `backend/src/supabase/admin.ts`; nunca em variável `NEXT_PUBLIC_*`. Previews nunca apontam para o banco de produção.
 - Validação de entrada com Zod no servidor. Consultas parametrizadas; nada de SQL concatenado.
+- Nada de dado pessoal, de saúde ou token na URL (caminho ou query); redirecionamentos, inclusive o retorno após login, só para caminhos internos.
 - Respostas com objetos de saída explícitos (sem hash de senha ou campos internos). Erros em Problem Details (RFC 9457); listas como `{ itens, total, pagina, tamanho }`.
 - Siga `docs/threat-model.md`.
 

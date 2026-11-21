@@ -12,7 +12,7 @@ Padrão de partida para sistemas web. Cada sistema pode trocar um item, registra
 | Frontend | Next.js (App Router), React, TypeScript, Tailwind | `proxy.ts` só redireciona; autorização real no backend |
 | Formulários | React Hook Form + Zod | Validação no front é experiência, não segurança |
 | Dados no front | TanStack Query | Sem cache compartilhado de dados sensíveis |
-| Backend | NestJS (API REST), TypeScript | Módulo por domínio: `controller` → pipe Zod → `service` → Prisma |
+| Backend | NestJS (API REST), TypeScript | Módulo por domínio: guard → pipe Zod → `controller` → `service` → Prisma |
 | Validação no backend | Zod (schemas em `<módulo>/schemas/`, `ZodValidationPipe` em `common/`) | Pesquisar a integração com a documentação Swagger antes de implementar |
 | Banco | PostgreSQL + Prisma | Usuários separados para migração e aplicação |
 | Gráficos | Recharts | Exigir tabela alternativa (acessibilidade) |
@@ -68,7 +68,7 @@ Skills rodam com **todas as permissões** do agente. Regras: instalar só da ori
 | A correção inicial da CVE-2025-55182 (React 19.0.1/19.1.2/19.2.1; Next.js 15.5.7/16.0.7) foi relatada como incompleta | 2026-11-19 | Média | react.dev, Zscaler |
 | NestJS 12 (ESM) é a linha atual; pede Node 20.19+ ou 22.12+ | 2026-11-19 | Média | endoflife.date, InfoQ |
 | Prisma 7: URL do banco em `prisma.config.ts`; `.env` não é carregado sozinho | 2026-11-19 | Boa | docs.prisma.io |
-| Next.js 16 renomeou `middleware.ts` para `proxy.ts` | (não reverificado) | Média | Material de estudo |
+| Next.js 16 renomeou `middleware.ts` para `proxy.ts` (mesma função; `middleware` ficou obsoleto) | 2026-11-20 | Boa | nextjs.org/docs/messages/middleware-to-proxy |
 | ExcelJS teve CVEs em 2026; citada correção em 5.0.0+ | 2026-11-19 | Baixa (agregadores) | OSV, Snyk |
 | Proteção da `main` e CODEOWNERS em repositório privado exigem plano pago | 2026-11-19 | Boa | docs.github.com |
 | Gitleaks v8.19+ usa os comandos `git`, `dir` e `stdin`; `detect` e `protect` ficaram obsoletos; `--staged` varre só o que vai ser commitado. A action oficial exige licença (`GITLEAKS_LICENSE`) para organizações | 2026-11-19 | Média (README espelhado) | github.com/gitleaks/gitleaks |
