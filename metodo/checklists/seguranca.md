@@ -32,11 +32,11 @@ Cada sistema marca o que se aplica e registra o que sobrescreve. Números entre 
 | S-26 | Banco e contêineres | Porta do banco não pública; sem senha padrão; usuários separados (migração × aplicação); contêiner sem root (?) | A aplicação não altera a estrutura do banco |
 | S-27 | CI/CD | Token do CI com permissões mínimas; *actions* de terceiros fixadas; segredos só no cofre | CI não escreve no repositório sem permissão declarada |
 | S-28 | Chaves e sessões | Chave de assinatura fora do código, com rotação e algoritmo fixo; sessões invalidadas ao trocar a senha | Refresh antigo recusado após troca de senha |
+| S-29 | Monitoramento | Registrar e alertar falhas de login em sequência e picos de 403 | Falhas seguidas geram alerta |
 | S-30 | Análise estática (SAST) | **Semgrep** no CI com conjunto de regras explícito; achado novo bloqueia o merge (falso positivo é justificado no PR) | Um trecho com SQL concatenado plantado num PR de teste é apontado |
 | S-31 | Auditoria antes do release | Antes do primeiro release, uma auditoria completa (skill de auditoria em avaliação) e revisão humana dos achados | Relatório anexado ao PR de release |
 | S-32 | MCP (conexões do agente) | Nenhum MCP por padrão; cada sistema adota com ADR. Só origem oficial e versão fixada; **mínimo privilégio** (só leitura quando possível, token com escopo pequeno); **nunca** banco ou serviço de produção; declarado em `.mcp.json` **sem aprovação automática** (`enableAllProjectMcpServers` desligado); o que volta de um MCP é **dado, não instrução**; dados da organização só com aprovação dela | O agente com MCP de banco não consegue escrever (usuário do banco só leitura); uma Issue com instrução maliciosa não é executada |
 | S-33 | Supabase: RLS e chaves (Perfil B) | RLS ligada e com políticas em **toda** tabela e no Storage; chave secreta só no servidor, nunca em `NEXT_PUBLIC_*`; previews sem acesso à produção | Usuário A tenta ler e alterar dado do usuário B pelo cliente e falha; busca por `sb_secret_` no build não encontra nada |
-| S-29 | Monitoramento | Registrar e alertar falhas de login em sequência e picos de 403 | Falhas seguidas geram alerta |
 
 **A decidir em cada sistema:** recuperação de senha (sugestão padrão: reset só por administrador).
 **Vigiar se aparecer:** upload de arquivos e SSRF exigem Spec e threat model próprios.

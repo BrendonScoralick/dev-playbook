@@ -1,6 +1,6 @@
 {
   "name": "dev-playbook",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Método de desenvolvimento assistido por IA, do brief à operação: cria sistemas novos (/dev-playbook:novo-sistema) e orienta cada etapa do ciclo (/dev-playbook:metodo).",
   "repository": "https://github.com/BrendonScoralick/dev-playbook"
 }

@@ -4,7 +4,7 @@
 **Como:** manualmente, pedindo à IA "atualize o dev-playbook seguindo `metodo/checklists/manutencao-do-playbook.md`". Depois que o processo estiver confiável, pode virar uma rotina agendada (skill `schedule`) que **abre um PR**; nunca merge automático.
 
 ## 1. Fatos perecíveis
-- [ ] Listar em `metodo/stack/perfil-a-corporativo.md` os fatos verificados há mais de 90 dias.
+- [ ] Listar os fatos verificados há mais de 90 dias (ou nunca verificados) em `metodo/stack/perfil-a-corporativo.md`, `metodo/stack/perfil-b-supabase-vercel.md` e `metodo/stack/radar.md`.
 - [ ] Reverificar cada um em fonte **oficial** (avisos de segurança, documentação, página de planos).
 - [ ] Atualizar a data, a confiança e a fonte; marcar o que mudou.
 
@@ -22,11 +22,11 @@
 - [ ] Pesquisar mudanças no Claude Code e nas ferramentas da stack que afetem o fluxo.
 - [ ] Separar **fato com fonte oficial** de **relato/tendência**. Tendência só entra como "em avaliação".
 
-## 4. Lições dos sistemas
+## 5. Lições dos sistemas
 - [ ] Ler as retros dos sistemas desde a última manutenção.
 - [ ] Levar ao playbook só as lições que valem para todos.
 
-## 5. Entrega
+## 6. Entrega
 - [ ] Tudo num **PR** no dev-playbook, com o diff, o motivo de cada mudança e as fontes.
 - [ ] Entrada no `CHANGELOG.md` e nova versão (tag) após o merge.
 - [ ] Você lê e aprova; a IA não aprova o próprio PR.
