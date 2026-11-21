@@ -2,6 +2,15 @@
 
 Formato: a versão sobe o número do meio quando um modelo, checklist ou padrão muda; sobe o primeiro número quando o fluxo muda de forma incompatível.
 
+## v1.2.0 (2026-11-21)
+
+Item novo no checklist de segurança e duas correções encontradas ao escrever material de estudo sobre o método.
+
+- **S-34, endereços e retorno após login (`metodo/checklists/seguranca.md`):** caminho e query sem dado pessoal, de saúde ou token; o parâmetro de retorno após login só aceita caminhos internos; a página de destino confere a permissão de novo; *Referrer-Policy* restritiva (a confirmar na documentação). Motivo: o endereço vai para o histórico do navegador, inclusive em computadores compartilhados, e para os registros dos servidores; e o retorno sem conferência é um redirecionamento aberto, usado para levar a pessoa a um site falso logo depois de um login verdadeiro. Esconder os caminhos da barra não é proteção e ficou registrado como tal. Boa prática da OWASP (redirecionamentos não validados; dados sensíveis em URL).
+- **Coerência com o S-34:** regra nos `CLAUDE.md` dos perfis A e B; item no checklist de revisão de código gerado por IA; regra de buscas com filtros pessoais no corpo em `metodo/padroes/contratos-de-api.md`.
+- **Correção da ordem da requisição no NestJS:** `arquitetura-de-pastas.md` e `perfil-a-corporativo.md` diziam "controller, pipe, guard"; no NestJS os guards rodam antes dos pipes. Agora: guard, pipe, controller, service.
+- **Fato verificado:** a troca de `middleware.ts` por `proxy.ts` no Next.js 16 passou de "não reverificado" para verificada em 2026-11-20 (nextjs.org/docs/messages/middleware-to-proxy).
+
 ## v1.1.2 (2026-11-20)
 
 Correções de consistência encontradas numa leitura completa do repositório.

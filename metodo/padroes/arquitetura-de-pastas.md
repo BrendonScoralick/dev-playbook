@@ -70,7 +70,7 @@ O `package.json` da raiz precisa do script `verificar`, que roda lint, checagem 
 └── <dominio>.service.spec.ts        teste unitário do service (opcional, ao lado do código)
 ```
 
-Fluxo de uma requisição: **controller → pipe Zod (formato) → guard (permissão) → service (regra, transação) → Prisma → banco**.
+Fluxo de uma requisição: **guard (permissão) → pipe Zod (formato) → controller → service (regra, transação) → Prisma → banco**. No NestJS, os guards rodam antes dos pipes; permissões que dependem dos dados (ex.: o registro é da unidade do usuário) são conferidas no service.
 
 **Regras de ouro**
 - Regra de negócio no **service**; HTTP no **controller**. Se um aparece no lugar do outro, a peça está errada (pergunta útil ao revisar diff da IA).

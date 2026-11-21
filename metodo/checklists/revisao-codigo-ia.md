@@ -26,6 +26,7 @@ Ferramentas úteis: `git diff` (o que mudou), `git diff --stat` (tamanho), `/rew
 - [ ] Alguma **dependência nova**? Conferida no registro oficial, com versão fixada?
 - [ ] SQL concatenado, dados pessoais em log, segredo no código, campo interno na resposta?
 - [ ] Mensagens de erro sem detalhes internos?
+- [ ] Algum **dado pessoal ou token no caminho ou na query**? Algum **redirecionamento** usa um destino vindo do usuário sem conferir que é um caminho interno (S-34)?
 - [ ] **O contrato mudou?** Algum campo, tipo, status ou rota diferente do que a seção "Contrato" da Spec diz? Se for quebra, a Spec mudou antes e o frontend está no mesmo PR?
 - [ ] Os testes conferem o **formato** da resposta, não só o status?
 

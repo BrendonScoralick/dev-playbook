@@ -54,6 +54,7 @@ O **contrato** é o acordo entre frontend e backend: rota, entrada, saída, erro
 - Identificadores: `id` UUID; número exibido separado (`numero`).
 - Nomes de campos em camelCase, no idioma escolhido para o sistema (um só).
 - Dinheiro, se houver: inteiro em centavos ou decimal como texto, nunca ponto flutuante.
+- Caminho e query sem dado pessoal, de saúde ou token: o endereço vai para o histórico do navegador e para os registros dos servidores (S-34). Buscas com filtros pessoais (ex.: CPF) usam uma rota de busca com os filtros no corpo, decidida na Spec.
 
 ## Mudança de contrato
 

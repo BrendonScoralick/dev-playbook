@@ -40,6 +40,7 @@ Nunca altere os arquivos do plugin: melhorias vão para o repositório do dev-pl
 ## Regras técnicas
 - Autorização sempre no backend (guards). Regra de negócio no service, não no controller. Validação de entrada com Zod.
 - Consultas parametrizadas; nada de SQL concatenado.
+- Nada de dado pessoal, de saúde ou token na URL (caminho ou query); redirecionamentos, inclusive o retorno após login, só para caminhos internos.
 - Respostas com objetos de saída explícitos (sem hash de senha ou campos internos). Erros em Problem Details (RFC 9457); listas como `{ itens, total, pagina, tamanho }`.
 - Siga `docs/threat-model.md`.
 
